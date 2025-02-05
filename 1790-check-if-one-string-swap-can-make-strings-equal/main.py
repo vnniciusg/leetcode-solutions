@@ -1,17 +1,14 @@
 class Solution:
     def areAlmostEqual(self, s1: str, s2: str) -> bool:
         
+        if Counter(s1) != Counter(s2):
+            return False
+
         if s1 == s2:
             return True
 
-        diff_count = 0
-        diff_indices = []
-        for i in range(len(s1)):
-            if s1[i] != s2[i]:
-                diff_count += 1
-                diff_indices.append(i)
-                
-                if diff_count > 2:
-                    return False
+        diff = sum([1 if a != b else 0 for a, b in zip(s1, s2)])
+        if diff == 2:
+            return True
 
-        return diff_count == 2 and s1[diff_indices[0]] == s2[diff_indices[1]] and s1[diff_indices[1]] == s2[diff_indices[0]]
+        return False
